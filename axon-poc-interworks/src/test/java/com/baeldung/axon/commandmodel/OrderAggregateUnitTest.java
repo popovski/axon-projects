@@ -6,17 +6,17 @@ import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.*;
 
-import mk.factory.code.axon.commandmodel.OrderAggregate;
-import mk.factory.code.axon.coreapi.commands.PlaceOrderCommand;
-import mk.factory.code.axon.coreapi.events.OrderPlacedEvent;
+import mk.factory.code.book.aggregate.BookAggregate;
+import mk.factory.code.book.commands.AddBookCommand;
+import mk.factory.code.book.events.AddBookEvent;
 
 public class OrderAggregateUnitTest {
 
-    private FixtureConfiguration<OrderAggregate> fixture;
+    private FixtureConfiguration<BookAggregate> fixture;
 
     @Before
     public void setUp() {
-        fixture = new AggregateTestFixture<>(OrderAggregate.class);
+        fixture = new AggregateTestFixture<>(BookAggregate.class);
     }
 
     @Test
@@ -24,8 +24,8 @@ public class OrderAggregateUnitTest {
         String orderId = UUID.randomUUID().toString();
         String product = "Deluxe Chair";
         fixture.givenNoPriorActivity()
-               .when(new PlaceOrderCommand(orderId, product))
-               .expectEvents(new OrderPlacedEvent(orderId, product));
+               .when(new AddBookCommand(orderId))
+               .expectEvents(new AddBookEvent(orderId));
     }
 
 }

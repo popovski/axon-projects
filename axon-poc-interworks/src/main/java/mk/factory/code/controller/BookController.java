@@ -1,4 +1,4 @@
-package mk.factory.code.axon.controller;
+package mk.factory.code.controller;
 
 import java.util.UUID;
 
@@ -7,15 +7,15 @@ import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mk.factory.code.axon.coreapi.commands.PlaceOrderCommand;
+import mk.factory.code.book.commands.AddBookCommand;
 
 @RestController
-public class OrderRestEndpoint {
+public class BookController {
 
     private final CommandGateway commandGateway;
     private final QueryGateway queryGateway;
 
-    public OrderRestEndpoint(CommandGateway commandGateway, QueryGateway queryGateway) {
+    public BookController(CommandGateway commandGateway, QueryGateway queryGateway) {
         this.commandGateway = commandGateway;
         this.queryGateway = queryGateway;
     }
@@ -23,7 +23,7 @@ public class OrderRestEndpoint {
     @PostMapping("/book")
     public void addBook() {
         String isbn = UUID.randomUUID().toString();
-        commandGateway.send(new PlaceOrderCommand(isbn, "Deluxe Chair"));
+        commandGateway.send(new AddBookCommand(isbn));
     }
 
 }

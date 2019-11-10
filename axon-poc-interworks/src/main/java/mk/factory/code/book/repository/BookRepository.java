@@ -1,4 +1,4 @@
-package mk.factory.code.repository;
+package mk.factory.code.book.repository;
 
 import java.util.List;
 
