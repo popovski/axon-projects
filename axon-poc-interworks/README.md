@@ -16,3 +16,10 @@ Run Axon sample app using maven with maven goal spring-boot:run
 
 H2
 http://localhost:8080/h2-console
+
+TODO
+
+- add new attributes to book entity
+- add query commands
+- add event soursing and see how it looks like
+
