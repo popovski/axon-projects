@@ -1,50 +1,27 @@
 package mk.factory.code.axon.querymodel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.queryhandling.QueryHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import mk.factory.code.axon.coreapi.events.OrderConfirmedEvent;
 import mk.factory.code.axon.coreapi.events.OrderPlacedEvent;
-import mk.factory.code.axon.coreapi.events.OrderShippedEvent;
-import mk.factory.code.axon.coreapi.queries.FindAllOrderedProductsQuery;
-import mk.factory.code.axon.coreapi.queries.OrderedProduct;
+import mk.factory.code.book.domain.Book;
+import mk.factory.code.repository.BookRepository;
 
 @Service
 public class OrderedProductsEventHandler {
 
-    private final Map<String, OrderedProduct> orderedProducts = new HashMap<>();
+	@Autowired
+    private BookRepository bookRepository;
 
     @EventHandler
     public void on(OrderPlacedEvent event) {
         String orderId = event.getOrderId();
-        orderedProducts.put(orderId, new OrderedProduct(orderId, event.getProduct()));
-    }
-
-    @EventHandler
-    public void on(OrderConfirmedEvent event) {
-        orderedProducts.computeIfPresent(event.getOrderId(), (orderId, orderedProduct) -> {
-            orderedProduct.setOrderConfirmed();
-            return orderedProduct;
-        });
-    }
-
-    @EventHandler
-    public void on(OrderShippedEvent event) {
-        orderedProducts.computeIfPresent(event.getOrderId(), (orderId, orderedProduct) -> {
-            orderedProduct.setOrderShipped();
-            return orderedProduct;
-        });
-    }
-
-    @QueryHandler
-    public List<OrderedProduct> handle(FindAllOrderedProductsQuery query) {
-        return new ArrayList<>(orderedProducts.values());
+        // create book entity
+        // save using the repository
+        Book book = new Book();
+        book.setIsbn(event.getOrderId());
+        
+        bookRepository.save(book);
     }
 
 }
