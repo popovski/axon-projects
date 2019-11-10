@@ -13,3 +13,6 @@ Axon dashboard port
 http://localhost:8024/
 
 Run Axon sample app using maven with maven goal spring-boot:run
+
+H2
+http://localhost:8080/h2-console
