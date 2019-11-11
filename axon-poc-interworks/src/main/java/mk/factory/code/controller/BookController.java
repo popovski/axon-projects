@@ -1,13 +1,18 @@
 package mk.factory.code.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mk.factory.code.book.commands.AddBookCommand;
+import mk.factory.code.book.queries.BookDTO;
+import mk.factory.code.book.queries.FindAllBooksQuery;
 
 @RestController
 public class BookController {
@@ -26,4 +31,9 @@ public class BookController {
         commandGateway.send(new AddBookCommand(isbn));
     }
 
+    @GetMapping("/book")
+    public List<BookDTO> findAllBooks() {
+        return queryGateway.query(new FindAllBooksQuery(), 
+        		ResponseTypes.multipleInstancesOf(BookDTO.class)).join();
+    }
 }

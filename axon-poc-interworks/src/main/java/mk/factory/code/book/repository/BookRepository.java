@@ -10,4 +10,5 @@ import mk.factory.code.book.domain.Book;
 @Repository
 public interface BookRepository extends CrudRepository<Book, String> {
 	List<Book> findByIsbn(Integer isbn);
+	List<Book> findAll();
 }
