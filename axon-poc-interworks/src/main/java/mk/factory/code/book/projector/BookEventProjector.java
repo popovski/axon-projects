@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mk.factory.code.book.events.AddBookEvent;
+import mk.factory.code.book.events.UpdateBookEvent;
 import mk.factory.code.book.factory.BookFactory;
 import mk.factory.code.book.queries.BookDTO;
 import mk.factory.code.book.queries.FindAllBooksQuery;
@@ -25,6 +26,11 @@ public class BookEventProjector {
 
 	@EventHandler
 	public void on(AddBookEvent event) {
+		bookRepository.save(bookFactory.createBookEntity(event));
+	}
+	
+	@EventHandler
+	public void on(UpdateBookEvent event) {
 		bookRepository.save(bookFactory.createBookEntity(event));
 	}
 

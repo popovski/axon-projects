@@ -3,13 +3,14 @@ package mk.factory.code.book.events;
 import java.util.Objects;
 
 import mk.factory.code.book.commands.AddBookCommand;
+import mk.factory.code.book.commands.UpdateBookCommand;
 
-public class AddBookEvent {
+public class UpdateBookEvent {
 	private final String isbn;
-	private final String id;
 	private final String title;
+	private final String id;
 	
-    public AddBookEvent(AddBookCommand command) {
+    public UpdateBookEvent(UpdateBookCommand command) {
         this.isbn = command.getIsbn();
         this.title = command.getTitle();
         this.id = command.getId();
@@ -40,7 +41,7 @@ public class AddBookEvent {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final AddBookEvent other = (AddBookEvent) obj;
+        final UpdateBookEvent other = (UpdateBookEvent) obj;
         return Objects.equals(this.isbn, other.isbn);
     }
 

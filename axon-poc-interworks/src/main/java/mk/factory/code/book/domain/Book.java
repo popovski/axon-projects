@@ -2,22 +2,25 @@ package mk.factory.code.book.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Book {
 	@Id
-	private String isbn;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private String id;
 
 	@Column
 	private String title;
 
-	public String getIsbn() {
-		return isbn;
+	public String getId() {
+		return id;
 	}
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
