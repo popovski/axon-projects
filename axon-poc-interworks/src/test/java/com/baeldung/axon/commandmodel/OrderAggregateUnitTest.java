@@ -24,8 +24,8 @@ public class OrderAggregateUnitTest {
         String orderId = UUID.randomUUID().toString();
         String product = "Deluxe Chair";
         fixture.givenNoPriorActivity()
-               .when(new AddBookCommand(orderId, ""))
-               .expectEvents(new AddBookEvent(new AddBookCommand(orderId, "")));
+               .when(new AddBookCommand(orderId, "", ""))
+               .expectEvents(new AddBookEvent(new AddBookCommand(orderId, "", "")));
     }
 
 }
