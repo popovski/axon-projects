@@ -10,6 +10,7 @@ import mk.factory.code.book.aggregate.BookAggregate;
 import mk.factory.code.book.commands.AddBookCommand;
 import mk.factory.code.book.events.AddBookEvent;
 
+@Ignore
 public class OrderAggregateUnitTest {
 
     private FixtureConfiguration<BookAggregate> fixture;
