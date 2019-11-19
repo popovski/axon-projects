@@ -23,7 +23,7 @@ Technologies used
 ## Building and Running
 In order to start the project please follow the current steps: 
 * `mvn clean install`
-* `java -jar .\target\axon-2.1.3.RELEASE.jar`
+* `java -jar .\target\axon-library-1.0.1.jar`
 Download and run the Axon Server
 * `java -jar axonserver-4.2.2.jar`
 
