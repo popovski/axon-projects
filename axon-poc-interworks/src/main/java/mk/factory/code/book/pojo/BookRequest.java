@@ -1,6 +1,6 @@
-package mk.factory.code.book.queries;
+package mk.factory.code.book.pojo;
 
-public class BookDTO {
+public class BookRequest {
 	private String id;
 	private String title;
 

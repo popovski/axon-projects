@@ -16,7 +16,6 @@ public class BookAggregate {
 
     @AggregateIdentifier
     private String isbn;
-    private String id;
     private String title;
     
     protected BookAggregate() {
@@ -37,13 +36,11 @@ public class BookAggregate {
     public void on(AddBookEvent event) {
         this.isbn = event.getIsbn();
         this.title = event.getTitle();
-        this.id = event.getId();
     }
     
     @EventSourcingHandler
     public void on(UpdateBookEvent event) {
     	this.isbn = event.getIsbn();
         this.title = event.getTitle();
-        this.id = event.getId();
     }
 }

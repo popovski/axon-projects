@@ -9,17 +9,11 @@ public class AddBookCommand {
 
 	@TargetAggregateIdentifier
 	private final String isbn;
-	private final String id;
 	private final String title;
 	
-	public AddBookCommand(String isbn, String title, String id) {
-		this.isbn = UUID.randomUUID().toString();;
+	public AddBookCommand(String title) {
+		this.isbn = UUID.randomUUID().toString();
 		this.title = title;
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public String getIsbn() {
@@ -49,6 +43,6 @@ public class AddBookCommand {
 
 	@Override
 	public String toString() {
-		return "PlaceOrderCommand{" + "orderId='" + isbn + '\'' + ", product='" + '\'' + '}';
+		return "AddBookCommand{" + "book isbn='" + isbn + '\'' + ", title='" + '\'' + title + '}';
 	}
 }

@@ -6,13 +6,11 @@ import mk.factory.code.book.commands.AddBookCommand;
 
 public class AddBookEvent {
 	private final String isbn;
-	private final String id;
 	private final String title;
 	
     public AddBookEvent(AddBookCommand command) {
         this.isbn = command.getIsbn();
         this.title = command.getTitle();
-        this.id = command.getId();
     }
 
     public String getIsbn() {
@@ -21,10 +19,6 @@ public class AddBookEvent {
     
     public String getTitle() {
 		return title;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	@Override
@@ -46,7 +40,7 @@ public class AddBookEvent {
 
     @Override
     public String toString() {
-        return "OrderPlacedEvent{" +
+        return "AddBookEvent{" +
                 "isbn='" + isbn + '\'' +
                 ", product='" + '\'' +
                 '}';

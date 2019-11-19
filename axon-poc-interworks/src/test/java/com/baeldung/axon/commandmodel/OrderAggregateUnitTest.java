@@ -1,7 +1,5 @@
 package com.baeldung.axon.commandmodel;
 
-import java.util.UUID;
-
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.*;
@@ -22,11 +20,9 @@ public class OrderAggregateUnitTest {
 
     @Test
     public void giveNoPriorActivity_whenPlaceOrderCommand_thenShouldPublishOrderPlacedEvent() {
-        String orderId = UUID.randomUUID().toString();
-        String product = "Deluxe Chair";
         fixture.givenNoPriorActivity()
-               .when(new AddBookCommand(orderId, "", ""))
-               .expectEvents(new AddBookEvent(new AddBookCommand(orderId, "", "")));
+               .when(new AddBookCommand("", ""))
+               .expectEvents(new AddBookEvent(new AddBookCommand("", "")));
     }
 
 }

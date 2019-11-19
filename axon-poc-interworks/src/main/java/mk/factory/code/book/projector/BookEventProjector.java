@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import mk.factory.code.book.events.AddBookEvent;
 import mk.factory.code.book.events.UpdateBookEvent;
 import mk.factory.code.book.factory.BookFactory;
-import mk.factory.code.book.queries.BookDTO;
+import mk.factory.code.book.pojo.BookResponse;
 import mk.factory.code.book.queries.FindAllBooksQuery;
 import mk.factory.code.book.repository.BookRepository;
 import java.util.stream.Collectors;
@@ -41,7 +41,7 @@ public class BookEventProjector {
 	}
 
 	@QueryHandler
-	public List<BookDTO> handle(FindAllBooksQuery query) {
+	public List<BookResponse> handle(FindAllBooksQuery query) {
 		return bookRepository.findAll().stream().map(bookFactory.toBookDTO()).collect(Collectors.toList());
 	}
 	
