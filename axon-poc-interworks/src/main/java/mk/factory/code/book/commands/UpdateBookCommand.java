@@ -11,11 +11,17 @@ public class UpdateBookCommand {
 	private final String id;
 	private final String title;
 	private final String guid;
+	private final String bookStatusGuid;
 
-	public UpdateBookCommand(String title, String guid) {
+	public UpdateBookCommand(String title, String guid, String bookStatusGuid) {
 		this.id = UUID.randomUUID().toString();
 		this.title = title;
 		this.guid = guid;
+		this.bookStatusGuid = bookStatusGuid;
+	}
+
+	public String getBookStatusGuid() {
+		return bookStatusGuid;
 	}
 
 	public String getGuid() {

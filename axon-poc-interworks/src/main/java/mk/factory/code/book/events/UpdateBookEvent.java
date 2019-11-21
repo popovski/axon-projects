@@ -8,14 +8,20 @@ public class UpdateBookEvent {
 	private final String id;
 	private final String title;
 	private final String guid;
+	private final String bookStatusGuid;
 	
-	public UpdateBookEvent(String id, String title, String guid) {
+	public UpdateBookEvent(String id, String title, String guid, String bookStatusGuid) {
         this.id = id;
         this.title = title;
         this.guid = guid;
+        this.bookStatusGuid = bookStatusGuid;
     }
 
-    public String getId() {
+    public String getBookStatusGuid() {
+		return bookStatusGuid;
+	}
+
+	public String getId() {
 		return id;
 	}
 

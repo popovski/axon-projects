@@ -58,7 +58,7 @@ public class BookController {
 	@PutMapping("/{guid}")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	public void updateBook(@RequestBody BookRequest bookRequest, @PathVariable String guid) {
-		commandGateway.send(new UpdateBookCommand(bookRequest.getTitle(), guid));
+		commandGateway.send(new UpdateBookCommand(bookRequest.getTitle(), guid, bookRequest.getBookStatusGuid()));
 	}
 
 	@GetMapping()

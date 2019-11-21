@@ -7,13 +7,23 @@ import mk.factory.code.book.commands.CreateBookCommand;
 public class CreateBookEvent {
 	private final String id;
 	private final String title;
+	private String bookStatusGuid;
 	
     public CreateBookEvent(CreateBookCommand command) {
         this.id = command.getId();
         this.title = command.getTitle();
+        this.bookStatusGuid = command.getBookStatusGuid();
     }
 
-    public String getId() {
+    public String getBookStatusGuid() {
+		return bookStatusGuid;
+	}
+
+	public void setBookStatusGuid(String bookStatusGuid) {
+		this.bookStatusGuid = bookStatusGuid;
+	}
+
+	public String getId() {
 		return id;
 	}
     

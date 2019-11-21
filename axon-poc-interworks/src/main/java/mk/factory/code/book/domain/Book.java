@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
+import mk.factory.code.book.status.domain.BookStatus;
+
 @Entity
 public class Book {
 	@PrePersist
@@ -25,9 +27,16 @@ public class Book {
 	@Column
 	private String title;
 	
-	// dali treba cel objekt jas da mu pustam, ili samo guid i posle da go baram
+	public BookStatus getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(BookStatus statusId) {
+		this.statusId = statusId;
+	}
+
 	@Column
-	private String statusId;
+	private BookStatus statusId;
 	
 	@Column(name = "GUID", updatable = false)
 	private String guid;
