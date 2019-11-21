@@ -6,7 +6,7 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
-import mk.factory.code.book.commands.AddBookCommand;
+import mk.factory.code.book.commands.CreateBookCommand;
 import mk.factory.code.book.commands.UpdateBookCommand;
 import mk.factory.code.book.events.AddBookEvent;
 import mk.factory.code.book.events.UpdateBookEvent;
@@ -23,7 +23,7 @@ public class BookAggregate {
     }
     
     @CommandHandler
-    public BookAggregate(AddBookCommand command) {
+    public BookAggregate(CreateBookCommand command) {
     	AggregateLifecycle.apply(new AddBookEvent(command));
     }
 

@@ -5,7 +5,7 @@ import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.*;
 
 import mk.factory.code.book.aggregate.BookAggregate;
-import mk.factory.code.book.commands.AddBookCommand;
+import mk.factory.code.book.commands.CreateBookCommand;
 import mk.factory.code.book.events.AddBookEvent;
 
 @Ignore
@@ -21,8 +21,8 @@ public class OrderAggregateUnitTest {
     @Test
     public void giveNoPriorActivity_whenPlaceOrderCommand_thenShouldPublishOrderPlacedEvent() {
         fixture.givenNoPriorActivity()
-               .when(new AddBookCommand("", ""))
-               .expectEvents(new AddBookEvent(new AddBookCommand("", "")));
+               .when(new CreateBookCommand(""))
+               .expectEvents(new AddBookEvent(new CreateBookCommand("")));
     }
 
 }

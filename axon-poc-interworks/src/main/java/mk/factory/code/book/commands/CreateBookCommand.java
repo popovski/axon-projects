@@ -5,13 +5,13 @@ import java.util.UUID;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-public class AddBookCommand {
+public class CreateBookCommand {
 
 	@TargetAggregateIdentifier
 	private final String isbn;
 	private final String title;
 	
-	public AddBookCommand(String title) {
+	public CreateBookCommand(String title) {
 		this.isbn = UUID.randomUUID().toString();
 		this.title = title;
 	}
@@ -37,7 +37,7 @@ public class AddBookCommand {
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
-		final AddBookCommand other = (AddBookCommand) obj;
+		final CreateBookCommand other = (CreateBookCommand) obj;
 		return Objects.equals(this.isbn, other.isbn);
 	}
 

@@ -2,13 +2,13 @@ package mk.factory.code.book.events;
 
 import java.util.Objects;
 
-import mk.factory.code.book.commands.AddBookCommand;
+import mk.factory.code.book.commands.CreateBookCommand;
 
 public class AddBookEvent {
 	private final String isbn;
 	private final String title;
 	
-    public AddBookEvent(AddBookCommand command) {
+    public AddBookEvent(CreateBookCommand command) {
         this.isbn = command.getIsbn();
         this.title = command.getTitle();
     }

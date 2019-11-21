@@ -2,7 +2,7 @@ package mk.factory.code.book.events;
 
 import java.util.Objects;
 
-import mk.factory.code.book.commands.AddBookCommand;
+import mk.factory.code.book.commands.CreateBookCommand;
 import mk.factory.code.book.commands.UpdateBookCommand;
 
 public class UpdateBookEvent {
