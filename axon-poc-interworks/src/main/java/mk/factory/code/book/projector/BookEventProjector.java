@@ -11,7 +11,7 @@ import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mk.factory.code.book.events.AddBookEvent;
+import mk.factory.code.book.events.CreateBookEvent;
 import mk.factory.code.book.events.UpdateBookEvent;
 import mk.factory.code.book.factory.BookFactory;
 import mk.factory.code.book.pojo.BookResponse;
@@ -30,7 +30,7 @@ public class BookEventProjector {
 	private BookFactory bookFactory;
 
 	@EventHandler
-	public void on(AddBookEvent event) {
+	public void on(CreateBookEvent event) {
 		bookRepository.save(bookFactory.createBookEntity(event));
 	}
 	

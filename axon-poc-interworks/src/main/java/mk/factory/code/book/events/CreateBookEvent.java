@@ -4,17 +4,17 @@ import java.util.Objects;
 
 import mk.factory.code.book.commands.CreateBookCommand;
 
-public class AddBookEvent {
-	private final String isbn;
+public class CreateBookEvent {
+	private final String id;
 	private final String title;
 	
-    public AddBookEvent(CreateBookCommand command) {
-        this.isbn = command.getIsbn();
+    public CreateBookEvent(CreateBookCommand command) {
+        this.id = command.getId();
         this.title = command.getTitle();
     }
 
-    public String getIsbn() {
-		return isbn;
+    public String getId() {
+		return id;
 	}
     
     public String getTitle() {
@@ -23,7 +23,7 @@ public class AddBookEvent {
 
 	@Override
     public int hashCode() {
-        return Objects.hash(isbn);
+        return Objects.hash(id);
     }
 
     @Override
@@ -34,15 +34,15 @@ public class AddBookEvent {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final AddBookEvent other = (AddBookEvent) obj;
-        return Objects.equals(this.isbn, other.isbn);
+        final CreateBookEvent other = (CreateBookEvent) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
         return "AddBookEvent{" +
-                "isbn='" + isbn + '\'' +
-                ", product='" + '\'' +
+                "id='" + id + '\'' +
+                ", ='" + '\'' +
                 '}';
     }
 }

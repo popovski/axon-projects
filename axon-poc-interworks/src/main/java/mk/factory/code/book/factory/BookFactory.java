@@ -7,14 +7,14 @@ import org.springframework.util.Assert;
 
 import mk.factory.code.book.commands.CreateBookCommand;
 import mk.factory.code.book.domain.Book;
-import mk.factory.code.book.events.AddBookEvent;
+import mk.factory.code.book.events.CreateBookEvent;
 import mk.factory.code.book.events.UpdateBookEvent;
 import mk.factory.code.book.pojo.BookRequest;
 import mk.factory.code.book.pojo.BookResponse;
 
 @Component
 public class BookFactory {
-	public Book createBookEntity(AddBookEvent event) {
+	public Book createBookEntity(CreateBookEvent event) {
 		Book book = new Book();
 		book.setTitle(event.getTitle());
 		

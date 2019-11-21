@@ -8,14 +8,14 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 import mk.factory.code.book.commands.CreateBookCommand;
 import mk.factory.code.book.commands.UpdateBookCommand;
-import mk.factory.code.book.events.AddBookEvent;
+import mk.factory.code.book.events.CreateBookEvent;
 import mk.factory.code.book.events.UpdateBookEvent;
 
 @Aggregate
 public class BookAggregate {
 
     @AggregateIdentifier
-    private String isbn;
+    private String id;
     private String title;
     
     protected BookAggregate() {
@@ -24,7 +24,7 @@ public class BookAggregate {
     
     @CommandHandler
     public BookAggregate(CreateBookCommand command) {
-    	AggregateLifecycle.apply(new AddBookEvent(command));
+    	AggregateLifecycle.apply(new CreateBookEvent(command));
     }
 
     @CommandHandler
@@ -33,14 +33,14 @@ public class BookAggregate {
     }
     
     @EventSourcingHandler
-    public void on(AddBookEvent event) {
-        this.isbn = event.getIsbn();
+    public void on(CreateBookEvent event) {
+        this.id = event.getId();
         this.title = event.getTitle();
     }
     
     @EventSourcingHandler
     public void on(UpdateBookEvent event) {
-    	this.isbn = event.getIsbn();
+    	this.id = event.getIsbn();
         this.title = event.getTitle();
     }
 }

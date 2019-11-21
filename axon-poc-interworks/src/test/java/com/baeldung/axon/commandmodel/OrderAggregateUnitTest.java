@@ -6,7 +6,7 @@ import org.junit.*;
 
 import mk.factory.code.book.aggregate.BookAggregate;
 import mk.factory.code.book.commands.CreateBookCommand;
-import mk.factory.code.book.events.AddBookEvent;
+import mk.factory.code.book.events.CreateBookEvent;
 
 @Ignore
 public class OrderAggregateUnitTest {
@@ -22,7 +22,7 @@ public class OrderAggregateUnitTest {
     public void giveNoPriorActivity_whenPlaceOrderCommand_thenShouldPublishOrderPlacedEvent() {
         fixture.givenNoPriorActivity()
                .when(new CreateBookCommand(""))
-               .expectEvents(new AddBookEvent(new CreateBookCommand("")));
+               .expectEvents(new CreateBookEvent(new CreateBookCommand("")));
     }
 
 }
