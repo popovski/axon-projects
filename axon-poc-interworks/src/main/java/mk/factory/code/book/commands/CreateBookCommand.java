@@ -11,10 +11,20 @@ public class CreateBookCommand {
 	@TargetAggregateIdentifier
 	private final String id;
 	private final String title;
+	private String bookStatusGuid;
 	
-	public CreateBookCommand(String title) {
+	public CreateBookCommand(String title, String bookStatusGuid) {
 		this.id = UUID.randomUUID().toString();
 		this.title = title;
+		this.bookStatusGuid = bookStatusGuid;
+	}
+
+	public String getBookStatusGuid() {
+		return bookStatusGuid;
+	}
+
+	public void setBookStatusGuid(String bookStatusGuid) {
+		this.bookStatusGuid = bookStatusGuid;
 	}
 
 	public String getId() {
@@ -44,6 +54,6 @@ public class CreateBookCommand {
 
 	@Override
 	public String toString() {
-		return "AddBookCommand{" + "book isbn='" + id + '\'' + ", title='" + '\'' + title + '}';
+		return "CreateBookCommand{" + "book id='" + id + '\'' + ", title='" + '\'' + title + '}';
 	}
 }

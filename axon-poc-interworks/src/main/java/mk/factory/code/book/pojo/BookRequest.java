@@ -2,6 +2,7 @@ package mk.factory.code.book.pojo;
 
 public class BookRequest {
 	private String title;
+	private String bookStatusGuid;
 
 	public String getTitle() {
 		return title;
@@ -9,5 +10,13 @@ public class BookRequest {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getBookStatusGuid() {
+		return bookStatusGuid;
+	}
+
+	public void setBookStatusGuid(String bookStatusGuid) {
+		this.bookStatusGuid = bookStatusGuid;
 	}
 }

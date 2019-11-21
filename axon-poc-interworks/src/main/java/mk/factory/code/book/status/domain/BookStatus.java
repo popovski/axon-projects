@@ -1,7 +1,5 @@
-package mk.factory.code.book.domain;
+package mk.factory.code.book.status.domain;
 
-import java.time.ZoneOffset;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -12,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
 @Entity
-public class Book {
+public class BookStatus {
 	@PrePersist
 	public void init() {
 		guid = UUID.randomUUID().toString();
@@ -23,11 +21,7 @@ public class Book {
 	private String id;
 
 	@Column
-	private String title;
-	
-	// dali treba cel objekt jas da mu pustam, ili samo guid i posle da go baram
-	@Column
-	private String statusId;
+	private String statusName;
 	
 	@Column(name = "GUID", updatable = false)
 	private String guid;
@@ -44,11 +38,11 @@ public class Book {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getStatusName() {
+		return statusName;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
 	}
 }

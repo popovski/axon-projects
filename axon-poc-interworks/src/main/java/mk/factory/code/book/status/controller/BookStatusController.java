@@ -1,4 +1,4 @@
-package mk.factory.code.book.controller;
+package mk.factory.code.book.status.controller;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -27,51 +27,43 @@ import mk.factory.code.book.pojo.BookRequest;
 import mk.factory.code.book.pojo.BookResponse;
 import mk.factory.code.book.projector.AxonAdministration;
 import mk.factory.code.book.queries.FindAllBooksQuery;
+import mk.factory.code.book.status.commands.CreateBookStatusCommand;
+import mk.factory.code.book.status.commands.UpdateBookStatusCommand;
+import mk.factory.code.book.status.factory.BookStatusFactory;
+import mk.factory.code.book.status.pojo.BookStatusRequest;
 import mk.factory.code.core.RestEndpoints;
 
 @RestController
-@RequestMapping(RestEndpoints.BOOK)
-public class BookController {
-	private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
+@RequestMapping(RestEndpoints.BOOK_STATUS)
+public class BookStatusController {
+	private static final Logger LOG = LoggerFactory.getLogger(BookStatusController.class);
 
 	private final CommandGateway commandGateway;
 	private final QueryGateway queryGateway;
 
 	@Autowired
-	AxonAdministration axonAdministration;
-	@Autowired
-	BookFactory bookFactory;
+	BookStatusFactory bookStatusFactory;
 
-	public BookController(CommandGateway commandGateway, QueryGateway queryGateway) {
+	public BookStatusController(CommandGateway commandGateway, QueryGateway queryGateway) {
 		this.commandGateway = commandGateway;
 		this.queryGateway = queryGateway;
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public void createBook(@RequestBody BookRequest bookRequest) {
-		LOG.info("Create Book Request");
-		commandGateway.send(new CreateBookCommand(bookRequest.getTitle(), 
-				bookRequest.getBookStatusGuid()));
+	public void createBookStatus(@RequestBody BookStatusRequest bookStatusRequest) {
+		LOG.info("Create Book Status Request");
+		commandGateway.send(new CreateBookStatusCommand(bookStatusRequest.getStatusName()));
 	}
 
 	@PutMapping("/{guid}")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	public void updateBook(@RequestBody BookRequest bookRequest, @PathVariable String guid) {
-		commandGateway.send(new UpdateBookCommand(bookRequest.getTitle(), guid));
+	public void updateBook(@RequestBody BookStatusRequest bookStatusRequest, @PathVariable String guid) {
+		commandGateway.send(new UpdateBookStatusCommand(bookStatusRequest.getStatusName(), guid));
 	}
 
 	@GetMapping()
 	public List<BookResponse> findAllBooks() {
 		return queryGateway.query(new FindAllBooksQuery(), ResponseTypes.multipleInstancesOf(BookResponse.class)).join();
-	}
-
-	@PostMapping("/{groupName}/replay")
-	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	public ResponseEntity<Object> replay(@PathVariable String groupName) {
-
-		axonAdministration.resetTrackingEventProcessor(groupName);
-
-		return ResponseEntity.accepted().build();
 	}
 }
