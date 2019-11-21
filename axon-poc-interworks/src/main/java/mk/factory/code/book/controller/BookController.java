@@ -55,9 +55,8 @@ public class BookController {
 	}
 
 	@PutMapping("/{guid}")
-	// update using the guid as a path param
-	public void updateBook(@RequestBody UpdateBookCommand updateBookCommand) {
-		commandGateway.send(updateBookCommand);
+	public void updateBook(@RequestBody BookRequest bookRequest, @PathVariable String guid) {
+		commandGateway.send(new UpdateBookCommand(bookRequest.getTitle(), guid));
 	}
 
 	@GetMapping()

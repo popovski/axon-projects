@@ -1,36 +1,36 @@
 package mk.factory.code.book.events;
 
 import java.util.Objects;
-
-import mk.factory.code.book.commands.CreateBookCommand;
-import mk.factory.code.book.commands.UpdateBookCommand;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 public class UpdateBookEvent {
-	private final String isbn;
-	private final String title;
+	@TargetAggregateIdentifier
 	private final String id;
+	private final String title;
+	private final String guid;
 	
-    public UpdateBookEvent(UpdateBookCommand command) {
-        this.isbn = command.getIsbn();
-        this.title = command.getTitle();
-        this.id = command.getId();
+	public UpdateBookEvent(String id, String title, String guid) {
+        this.id = id;
+        this.title = title;
+        this.guid = guid;
     }
 
-    public String getIsbn() {
-		return isbn;
+    public String getId() {
+		return id;
 	}
+
+    public String getGuid() {
+		return guid;
+	}
+
     
     public String getTitle() {
 		return title;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	@Override
+    @Override
     public int hashCode() {
-        return Objects.hash(isbn);
+        return Objects.hash(id);
     }
 
     @Override
@@ -42,13 +42,13 @@ public class UpdateBookEvent {
             return false;
         }
         final UpdateBookEvent other = (UpdateBookEvent) obj;
-        return Objects.equals(this.isbn, other.isbn);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "OrderPlacedEvent{" +
-                "isbn='" + isbn + '\'' +
+        return "UpdateBookEvent{" +
+                "id='" + id + '\'' +
                 ", product='" + '\'' +
                 '}';
     }

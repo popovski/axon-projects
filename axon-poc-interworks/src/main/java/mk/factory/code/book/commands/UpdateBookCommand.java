@@ -8,31 +8,31 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class UpdateBookCommand {
 
 	@TargetAggregateIdentifier
-	private final String isbn;
-	private final String title;
 	private final String id;
+	private final String title;
+	private final String guid;
 
-	public UpdateBookCommand(String isbn, String title, String id) {
-		this.isbn = UUID.randomUUID().toString();
+	public UpdateBookCommand(String title, String guid) {
+		this.id = UUID.randomUUID().toString();
 		this.title = title;
-		this.id = id;
+		this.guid = guid;
 	}
 
-	public String getIsbn() {
-		return isbn;
+	public String getGuid() {
+		return guid;
 	}
 	
 	public String getId() {
 		return id;
 	}
-	
+		
 	public String getTitle() {
 		return title;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isbn);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -44,11 +44,11 @@ public class UpdateBookCommand {
 			return false;
 		}
 		final UpdateBookCommand other = (UpdateBookCommand) obj;
-		return Objects.equals(this.isbn, other.isbn);
+		return Objects.equals(this.id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "PlaceOrderCommand{" + "orderId='" + isbn + '\'' + ", product='" + '\'' + '}';
+		return "UpdateBookCommand{" + "id='" + id + '\'' + ", title='" + '\'' + '}';
 	}
 }

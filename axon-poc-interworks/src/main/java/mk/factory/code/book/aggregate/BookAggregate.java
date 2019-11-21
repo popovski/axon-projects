@@ -17,6 +17,7 @@ public class BookAggregate {
     @AggregateIdentifier
     private String id;
     private String title;
+    private String guid;
     
     protected BookAggregate() {
         // Required by Axon to build a default Aggregate prior to Event Sourcing
@@ -29,7 +30,7 @@ public class BookAggregate {
 
     @CommandHandler
     public BookAggregate(UpdateBookCommand command) {
-    	AggregateLifecycle.apply(new UpdateBookEvent(command));
+    	AggregateLifecycle.apply(new UpdateBookEvent(command.getId(), command.getTitle(), command.getGuid()));
     }
     
     @EventSourcingHandler
@@ -40,7 +41,8 @@ public class BookAggregate {
     
     @EventSourcingHandler
     public void on(UpdateBookEvent event) {
-    	this.id = event.getIsbn();
+    	this.id = event.getId();
         this.title = event.getTitle();
+        this.guid = event.getGuid();
     }
 }
