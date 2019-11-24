@@ -27,6 +27,8 @@ import mk.factory.code.book.pojo.BookRequest;
 import mk.factory.code.book.pojo.BookResponse;
 import mk.factory.code.book.projector.AxonAdministration;
 import mk.factory.code.book.queries.FindAllBooksQuery;
+import mk.factory.code.book.status.pojo.BookStatusResponse;
+import mk.factory.code.book.status.queries.FindAllBookStatusQuery;
 import mk.factory.code.core.RestEndpoints;
 
 @RestController
@@ -65,12 +67,13 @@ public class BookController {
 	public List<BookResponse> findAllBooks() {
 		return queryGateway.query(new FindAllBooksQuery(), ResponseTypes.multipleInstancesOf(BookResponse.class)).join();
 	}
-
-	@PostMapping("/{groupName}/replay")
+	
+	@PostMapping("/{groupName}/{minutes}/replay")
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	public ResponseEntity<Object> replay(@PathVariable String groupName) {
+	public ResponseEntity<Object> replay(@PathVariable String groupName, 
+			@PathVariable Integer minutes) {
 
-		axonAdministration.resetTrackingEventProcessor(groupName);
+		axonAdministration.resetTrackingEventProcessorByDays(groupName, minutes);
 
 		return ResponseEntity.accepted().build();
 	}

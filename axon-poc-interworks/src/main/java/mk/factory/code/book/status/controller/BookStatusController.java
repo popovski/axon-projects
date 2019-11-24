@@ -31,6 +31,8 @@ import mk.factory.code.book.status.commands.CreateBookStatusCommand;
 import mk.factory.code.book.status.commands.UpdateBookStatusCommand;
 import mk.factory.code.book.status.factory.BookStatusFactory;
 import mk.factory.code.book.status.pojo.BookStatusRequest;
+import mk.factory.code.book.status.pojo.BookStatusResponse;
+import mk.factory.code.book.status.queries.FindAllBookStatusQuery;
 import mk.factory.code.core.RestEndpoints;
 
 @RestController
@@ -63,7 +65,8 @@ public class BookStatusController {
 	}
 
 	@GetMapping()
-	public List<BookResponse> findAllBooks() {
-		return queryGateway.query(new FindAllBooksQuery(), ResponseTypes.multipleInstancesOf(BookResponse.class)).join();
+	public List<BookStatusResponse> findAllBookStatus() {
+		return queryGateway.query(new FindAllBookStatusQuery(), 
+				ResponseTypes.multipleInstancesOf(BookStatusResponse.class)).join();
 	}
 }

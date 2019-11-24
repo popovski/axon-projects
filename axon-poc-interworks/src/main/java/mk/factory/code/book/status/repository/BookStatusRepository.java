@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import mk.factory.code.book.status.domain.BookStatus;
+import mk.factory.code.book.status.domain.BookStatusEntity;
 
 @Repository
-public interface BookStatusRepository extends CrudRepository<BookStatus, String> {
-	List<BookStatus> findById(Integer id);
-	List<BookStatus> findAll();
+public interface BookStatusRepository extends CrudRepository<BookStatusEntity, String> {
+	BookStatusEntity findByGuid(String id);
+	List<BookStatusEntity> findAll();
 }

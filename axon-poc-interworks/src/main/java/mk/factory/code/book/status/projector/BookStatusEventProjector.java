@@ -27,7 +27,7 @@ import mk.factory.code.book.status.repository.BookStatusRepository;
 import java.util.stream.Collectors;
 
 @Service
-@ProcessingGroup("book")
+@ProcessingGroup("bookStatus")
 public class BookStatusEventProjector {
 
 	@Autowired
@@ -43,7 +43,7 @@ public class BookStatusEventProjector {
 	
 	@EventHandler
 	@AllowReplay(false)
-	public void on(UpdateBookStatusEvent event, ReplayStatus replayStatus) {
+	public void on(UpdateBookStatusEvent event) {
 		bookStatusRepository.save(bookStatusFactory.createBookStatusEntity(event));
 	}
 
