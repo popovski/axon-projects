@@ -19,10 +19,11 @@ import mk.factory.code.book.status.pojo.BookStatusResponse;
 @Component
 public class BookStatusFactory {
 	public BookStatusEntity createBookStatusEntity(CreateBookStatusEvent event) {
-		BookStatusEntity bookStatus = new BookStatusEntity();
-		bookStatus.setStatusName(event.getStatusName());
+		BookStatusEntity bookStatusEntity = new BookStatusEntity();
+		bookStatusEntity.setGuid(event.getGuid());
+		bookStatusEntity.setStatusName(event.getStatusName());
 		
-		return bookStatus;
+		return bookStatusEntity;
 	}
 	
 	public BookStatusEntity createBookStatusEntity(UpdateBookStatusEvent event) {

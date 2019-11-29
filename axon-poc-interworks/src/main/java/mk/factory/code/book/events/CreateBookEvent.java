@@ -6,11 +6,13 @@ import mk.factory.code.book.commands.CreateBookCommand;
 
 public class CreateBookEvent {
 	private final String id;
+	private String guid;
 	private final String title;
 	private String bookStatusGuid;
 	
     public CreateBookEvent(CreateBookCommand command) {
         this.id = command.getId();
+        this.guid = command.getGuid();
         this.title = command.getTitle();
         this.bookStatusGuid = command.getBookStatusGuid();
     }
@@ -29,6 +31,14 @@ public class CreateBookEvent {
     
     public String getTitle() {
 		return title;
+	}
+
+	public String getGuid() {
+		return guid;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
 	}
 
 	@Override
@@ -50,8 +60,7 @@ public class CreateBookEvent {
 
     @Override
     public String toString() {
-        return "AddBookEvent{" +
-                "id='" + id + '\'' +
+        return "CreateBookEvent {" + "id='" + id + '\'' +
                 ", ='" + '\'' +
                 '}';
     }

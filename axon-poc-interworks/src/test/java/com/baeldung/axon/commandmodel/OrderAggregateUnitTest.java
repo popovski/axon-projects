@@ -21,8 +21,8 @@ public class OrderAggregateUnitTest {
     @Test
     public void giveNoPriorActivity_whenPlaceOrderCommand_thenShouldPublishOrderPlacedEvent() {
         fixture.givenNoPriorActivity()
-               .when(new CreateBookCommand("", null))
-               .expectEvents(new CreateBookEvent(new CreateBookCommand("", null)));
+               .when(new CreateBookCommand("", null, null))
+               .expectEvents(new CreateBookEvent(new CreateBookCommand("", null, null)));
     }
 
 }

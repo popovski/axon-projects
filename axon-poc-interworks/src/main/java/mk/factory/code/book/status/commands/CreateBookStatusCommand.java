@@ -11,9 +11,11 @@ public class CreateBookStatusCommand {
 	@TargetAggregateIdentifier
 	private final String id;
 	private final String statusName;
+	private String guid;
 	
-	public CreateBookStatusCommand(String statusName) {
+	public CreateBookStatusCommand(String guid, String statusName) {
 		this.id = UUID.randomUUID().toString();
+		this.guid = guid;
 		this.statusName = statusName;
 	}
 
@@ -23,6 +25,14 @@ public class CreateBookStatusCommand {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getGuid() {
+		return guid;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
 	}
 
 	@Override

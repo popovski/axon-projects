@@ -55,7 +55,8 @@ public class BookStatusController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void createBookStatus(@RequestBody BookStatusRequest bookStatusRequest) {
 		LOG.info("Create Book Status Request");
-		commandGateway.send(new CreateBookStatusCommand(bookStatusRequest.getStatusName()));
+		commandGateway.send(new CreateBookStatusCommand(bookStatusRequest.getGuid(), 
+				bookStatusRequest.getStatusName()));
 	}
 
 	@PutMapping("/{guid}")

@@ -8,10 +8,12 @@ import mk.factory.code.book.status.commands.CreateBookStatusCommand;
 public class CreateBookStatusEvent {
 	private final String id;
 	private final String statusName;
+	private final String guid;
 	
     public CreateBookStatusEvent(CreateBookStatusCommand command) {
         this.id = command.getId();
         this.statusName = command.getStatusName();
+        this.guid = command.getGuid();
     }
 
     public String getId() {
@@ -39,9 +41,13 @@ public class CreateBookStatusEvent {
         return Objects.equals(this.id, other.id);
     }
 
-    @Override
+    public String getGuid() {
+		return guid;
+	}
+
+	@Override
     public String toString() {
-        return "AddBookEvent{" +
+        return "CreateBookStatusEvent { " +
                 "id='" + id + '\'' +
                 ", ='" + '\'' +
                 '}';

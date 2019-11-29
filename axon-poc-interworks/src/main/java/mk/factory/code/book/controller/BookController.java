@@ -35,7 +35,6 @@ import mk.factory.code.core.RestEndpoints;
 @RequestMapping(RestEndpoints.BOOK)
 public class BookController {
 	private static final Logger LOG = LoggerFactory.getLogger(BookController.class);
-
 	private final CommandGateway commandGateway;
 	private final QueryGateway queryGateway;
 
@@ -53,8 +52,8 @@ public class BookController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void createBook(@RequestBody BookRequest bookRequest) {
 		LOG.info("Create Book Request");
-		commandGateway.send(new CreateBookCommand(bookRequest.getTitle(), 
-				bookRequest.getBookStatusGuid()));
+		commandGateway.send(new CreateBookCommand(bookRequest.getGuid(), 
+				bookRequest.getTitle(), bookRequest.getBookStatusGuid()));
 	}
 
 	@PutMapping("/{guid}")
@@ -65,7 +64,8 @@ public class BookController {
 
 	@GetMapping()
 	public List<BookResponse> findAllBooks() {
-		return queryGateway.query(new FindAllBooksQuery(), ResponseTypes.multipleInstancesOf(BookResponse.class)).join();
+		return queryGateway.query(new FindAllBooksQuery(), 
+				ResponseTypes.multipleInstancesOf(BookResponse.class)).join();
 	}
 	
 	@PostMapping("/{groupName}/{minutes}/replay")

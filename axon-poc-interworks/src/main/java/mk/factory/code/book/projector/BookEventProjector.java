@@ -38,7 +38,6 @@ public class BookEventProjector {
 	@EventHandler
 	@AllowReplay(false)
 	public void on(CreateBookEvent event, ReplayStatus replayStatus) {
-		System.out.println("*** BookEventProjector CreateBookEvent");
 		BookStatusEntity bookStatus = bookStatusRepository.findByGuid(event.getBookStatusGuid());
 		
 		bookRepository.save(bookFactory.createBookEntity(event, bookStatus));
@@ -50,10 +49,7 @@ public class BookEventProjector {
 		if (event.getTitle().equals("Nikola Update1")) {
 			System.out.println("");
 		}
-		// ova ne mozi vaka
 		BookStatusEntity bookStatus = bookStatusRepository.findByGuid(event.getBookStatusGuid());
-		// book entity treba da se kreira od eventot
-		// ne mozi da se zemi od repositorito pa pa toj objekt da se kreira
 		BookEntity bookEntity = bookRepository.findByGuid(event.getGuid());
 		bookRepository.save(bookFactory.createBookEntity(event, bookEntity, bookStatus));
 	}

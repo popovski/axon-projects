@@ -20,11 +20,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class BookStatusEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@PrePersist
-	public void init() {
-		guid = UUID.randomUUID().toString();
-	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
@@ -75,5 +70,9 @@ public class BookStatusEntity implements Serializable {
 
 	public void setUpdateDateTime(LocalDateTime updateDateTime) {
 		this.updateDateTime = updateDateTime;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
 	}
 }
