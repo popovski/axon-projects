@@ -24,6 +24,7 @@ public class BookFactory {
 	// used for updating book entity
 	public BookEntity createBookEntity(UpdateBookEvent event, BookEntity bookEntity, BookStatusEntity bookStatus) {
 
+		bookEntity.setGuid(event.getGuid());
 		bookEntity.setTitle(event.getTitle());
 		bookEntity.setBookStatus(bookStatus);
 

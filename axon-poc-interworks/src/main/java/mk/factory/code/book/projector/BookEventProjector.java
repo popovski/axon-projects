@@ -36,8 +36,9 @@ public class BookEventProjector {
 	private BookFactory bookFactory;
 
 	@EventHandler
-	@AllowReplay(false)
+	@AllowReplay(true)
 	public void on(CreateBookEvent event, ReplayStatus replayStatus) {
+		System.out.println("EventHandler CreateBookEvent: bookStatusGuid: " + event.getBookStatusGuid());
 		BookStatusEntity bookStatus = bookStatusRepository.findByGuid(event.getBookStatusGuid());
 		
 		bookRepository.save(bookFactory.createBookEntity(event, bookStatus));
@@ -46,11 +47,10 @@ public class BookEventProjector {
 	@EventHandler
 	@AllowReplay(true)
 	public void on(UpdateBookEvent event, ReplayStatus replayStatus) {
-		if (event.getTitle().equals("Nikola Update1")) {
-			System.out.println("");
-		}
+		System.out.println("EventHandler UpdateBookEvent: bookStatusGuid: " + event.getBookStatusGuid());
 		BookStatusEntity bookStatus = bookStatusRepository.findByGuid(event.getBookStatusGuid());
 		BookEntity bookEntity = bookRepository.findByGuid(event.getGuid());
+		
 		bookRepository.save(bookFactory.createBookEntity(event, bookEntity, bookStatus));
 	}
 

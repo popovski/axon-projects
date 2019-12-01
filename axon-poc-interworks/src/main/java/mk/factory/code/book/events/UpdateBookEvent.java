@@ -15,6 +15,7 @@ public class UpdateBookEvent {
         this.title = title;
         this.guid = guid;
         this.bookStatusGuid = bookStatusGuid;
+        System.out.println("UpdateBookEvent: bookStatusGuid" + bookStatusGuid);
     }
 
     public String getBookStatusGuid() {

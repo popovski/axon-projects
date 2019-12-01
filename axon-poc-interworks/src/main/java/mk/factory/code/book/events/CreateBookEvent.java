@@ -15,6 +15,7 @@ public class CreateBookEvent {
         this.guid = command.getGuid();
         this.title = command.getTitle();
         this.bookStatusGuid = command.getBookStatusGuid();
+        System.out.println("CreateBookEvent: bookStatusGuid" + command.getBookStatusGuid());
     }
 
     public String getBookStatusGuid() {

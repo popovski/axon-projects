@@ -18,6 +18,7 @@ public class UpdateBookCommand {
 		this.title = title;
 		this.guid = guid;
 		this.bookStatusGuid = bookStatusGuid;
+		System.out.println("CreateBookCommand: bookStatusGuid" + bookStatusGuid);
 	}
 
 	public String getBookStatusGuid() {

@@ -27,7 +27,7 @@ public class BookEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String id;
 
-	@Column(name = "GUID", updatable = false)
+	@Column(name = "GUID", updatable = false, unique = true)
 	private String guid;
 	
 	@Column
