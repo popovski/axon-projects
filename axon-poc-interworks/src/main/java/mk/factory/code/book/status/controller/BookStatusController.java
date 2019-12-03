@@ -45,6 +45,8 @@ public class BookStatusController {
 
 	@Autowired
 	BookStatusFactory bookStatusFactory;
+	@Autowired
+	AxonAdministration axonAdministration;
 
 	public BookStatusController(CommandGateway commandGateway, QueryGateway queryGateway) {
 		this.commandGateway = commandGateway;
@@ -69,5 +71,15 @@ public class BookStatusController {
 	public List<BookStatusResponse> findAllBookStatus() {
 		return queryGateway.query(new FindAllBookStatusQuery(), 
 				ResponseTypes.multipleInstancesOf(BookStatusResponse.class)).join();
+	}
+	
+	@PostMapping("/{groupName}/{minutes}/replay")
+	@ResponseStatus(value = HttpStatus.ACCEPTED)
+	public ResponseEntity<Object> replay(@PathVariable String groupName, 
+			@PathVariable Integer minutes) {
+
+		axonAdministration.resetTrackingEventProcessorByDays(groupName, minutes);
+
+		return ResponseEntity.accepted().build();
 	}
 }

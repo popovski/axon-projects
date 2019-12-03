@@ -8,6 +8,8 @@ import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.ReplayStatus;
 import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.queryhandling.QueryHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,8 @@ import java.util.stream.Collectors;
 @Service
 @ProcessingGroup("bookStatus")
 public class BookStatusEventProjector {
-
+	Logger logger = LoggerFactory.getLogger(BookStatusEventProjector.class);
+	
 	@Autowired
 	private BookStatusRepository bookStatusRepository;
 	
@@ -37,13 +40,20 @@ public class BookStatusEventProjector {
 	private BookStatusFactory bookStatusFactory;
 
 	@EventHandler
-	public void on(CreateBookStatusEvent event) {
+	@AllowReplay(true)
+	public void on(CreateBookStatusEvent event, ReplayStatus replayStatus) {
+		logger.info("Replay Status: {}", replayStatus.isReplay());
+		logger.info("CreateBookStatusEvent: GUID {}", event.getGuid());
+		logger.info("CreateBookStatusEvent: StatusName {}", event.getStatusName());
 		bookStatusRepository.save(bookStatusFactory.createBookStatusEntity(event));
 	}
 	
 	@EventHandler
-	@AllowReplay(false)
-	public void on(UpdateBookStatusEvent event) {
+	@AllowReplay(true)
+	public void on(UpdateBookStatusEvent event, ReplayStatus replayStatus) {
+		logger.info("Replay Status: {}", replayStatus.isReplay());
+		logger.info("UpdateBookStatusEvent: GUID {}", event.getGuid());
+		logger.info("UpdateBookStatusEvent: StatusName {}", event.getStatusName());
 		bookStatusRepository.save(bookStatusFactory.createBookStatusEntity(event));
 	}
 
@@ -52,4 +62,9 @@ public class BookStatusEventProjector {
 		return bookStatusRepository.findAll()
 				.stream().map(bookStatusFactory.toBookStatusDTO()).collect(Collectors.toList());
 	}
+	
+    @ResetHandler
+    public void onReset() { 
+    	bookStatusRepository.deleteAll(); 
+    }
 }

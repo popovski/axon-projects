@@ -8,6 +8,8 @@ import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.ReplayStatus;
 import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.queryhandling.QueryHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,8 @@ import java.util.stream.Collectors;
 @Service
 @ProcessingGroup("book")
 public class BookEventProjector {
-
+	Logger logger = LoggerFactory.getLogger(BookEventProjector.class);
+	
 	@Autowired
 	private BookRepository bookRepository;
 	@Autowired
@@ -36,9 +39,11 @@ public class BookEventProjector {
 	private BookFactory bookFactory;
 
 	@EventHandler
-	@AllowReplay(true)
-	public void on(CreateBookEvent event, ReplayStatus replayStatus) {
-		System.out.println("EventHandler CreateBookEvent: bookStatusGuid: " + event.getBookStatusGuid());
+	@AllowReplay(false)
+	public void on(CreateBookEvent event) {
+		logger.info("CreateBookEvent: BOOK GUID {}", event.getGuid());
+		logger.info("CreateBookEvent: TITLE {}", event.getTitle());
+		logger.info("CreateBookEvent: BOOK STATUS GUID {}", event.getBookStatusGuid());
 		BookStatusEntity bookStatus = bookStatusRepository.findByGuid(event.getBookStatusGuid());
 		
 		bookRepository.save(bookFactory.createBookEntity(event, bookStatus));
@@ -47,8 +52,18 @@ public class BookEventProjector {
 	@EventHandler
 	@AllowReplay(true)
 	public void on(UpdateBookEvent event, ReplayStatus replayStatus) {
-		System.out.println("EventHandler UpdateBookEvent: bookStatusGuid: " + event.getBookStatusGuid());
+		logger.info("Replay Status: {}", replayStatus.isReplay());
+		logger.info("UpdateBookEvent: BOOK GUID {}", event.getGuid());
+		logger.info("UpdateBookEvent: TITLE {}", event.getTitle());
+		logger.info("UpdateBookEvent: BOOK STATUS GUID {}", event.getBookStatusGuid());
 		BookStatusEntity bookStatus = bookStatusRepository.findByGuid(event.getBookStatusGuid());
+		
+		if (bookStatus != null) {
+			logger.info("UpdateBookEvent: BOOK STATUS TITLE {}", bookStatus.getStatusName());
+		} else {
+			logger.error("Error: bookStatus is not existing");
+		}
+		
 		BookEntity bookEntity = bookRepository.findByGuid(event.getGuid());
 		
 		bookRepository.save(bookFactory.createBookEntity(event, bookEntity, bookStatus));
@@ -58,9 +73,4 @@ public class BookEventProjector {
 	public List<BookResponse> handle(FindAllBooksQuery query) {
 		return bookRepository.findAll().stream().map(bookFactory.toBookDTO()).collect(Collectors.toList());
 	}
-	
-    @ResetHandler
-    public void onReset() { 
-    	bookRepository.deleteAll(); 
-    }
 }

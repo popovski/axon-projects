@@ -8,6 +8,7 @@ The Library Application makes use of the following design patterns:
 - Domain Driven Design
 - CQRS
 - Event Sourcing
+- Axon Framework
 
 ## Domain
 Axon Library concerns itself with the book library domain. The application consists of 1 aggregates: book 
@@ -43,3 +44,14 @@ http://localhost:8024/
 Available functionalities
 Creating new Books
 Replay events related to book domain
+
+Development Instructions
+When we change the entity domain object (add or remove some attributes), we have to delete the axon server data (placed under data folder in the axon server) and start all over again.
+
+Workflow for demo
+1. Create new Book-Status (guid is send by the client so we can replay that later)
+2. Create new book with the existing book status
+3. Update the already create book with a new status
+4. Replay all events in the last couple of minutes
+5. Log every event that is getting created, review that the database is clear when we reset all the events
+
