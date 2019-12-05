@@ -1,5 +1,5 @@
 package mk.factory.code.book.pojo;
-
+// DTO object handles request payload
 public class BookRequest {
 	private String title;
 	private String bookStatusGuid;

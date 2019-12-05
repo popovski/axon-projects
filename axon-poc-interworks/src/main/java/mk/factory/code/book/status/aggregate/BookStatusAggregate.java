@@ -26,9 +26,11 @@ public class BookStatusAggregate {
     protected BookStatusAggregate() {
         // Required by Axon to build a default Aggregate prior to Event Sourcing
     }
-    
+    // handle the command and create book status event
     @CommandHandler
     public BookStatusAggregate(CreateBookStatusCommand command) {
+    	// send event to the event store
+    	// the event is handled by the projector service
     	AggregateLifecycle.apply(new CreateBookStatusEvent(command));
     }
 

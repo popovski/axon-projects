@@ -5,9 +5,8 @@ import java.util.UUID;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-// value object
+// value object - command
 public class CreateBookStatusCommand {
-
 	@TargetAggregateIdentifier
 	private final String id;
 	private final String statusName;

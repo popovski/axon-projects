@@ -47,7 +47,7 @@ public class BookStatusController {
 	BookStatusFactory bookStatusFactory;
 	@Autowired
 	AxonAdministration axonAdministration;
-
+	// objects are injected by sprint axon support
 	public BookStatusController(CommandGateway commandGateway, QueryGateway queryGateway) {
 		this.commandGateway = commandGateway;
 		this.queryGateway = queryGateway;
