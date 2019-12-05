@@ -13,40 +13,38 @@ import mk.factory.code.book.events.UpdateBookEvent;
 
 @Aggregate
 public class BookAggregate {
-
     @AggregateIdentifier
-    private String id;
-    private String title;
     private String guid;
+    private String title;
 	private String bookStatusGuid;
     
-    protected BookAggregate() {
-        // Required by Axon to build a default Aggregate prior to Event Sourcing
-    }
-    
+	public BookAggregate() {
+		
+	}
+	
     @CommandHandler
     public BookAggregate(CreateBookCommand command) {
     	AggregateLifecycle.apply(new CreateBookEvent(command));
     }
-
+    // update book case should not be handled in the constructor
+    // because we have to connect the already existing book aggregate with the update book command
     @CommandHandler
-    public BookAggregate(UpdateBookCommand command) {
-    	AggregateLifecycle.apply(new UpdateBookEvent(command.getId(), 
-    			command.getTitle(), command.getGuid(), command.getBookStatusGuid()));
+    public void handle(UpdateBookCommand command) {
+    	AggregateLifecycle.apply(new UpdateBookEvent(command.getTitle(), 
+    			command.getGuid(), command.getBookStatusGuid()));
     }
-    
+
     @EventSourcingHandler
     public void on(CreateBookEvent event) {
-        this.id = event.getId();
+        this.guid = event.getGuid();
         this.title = event.getTitle();
         this.bookStatusGuid = event.getBookStatusGuid();
     }
     
     @EventSourcingHandler
     public void on(UpdateBookEvent event) {
-    	this.id = event.getId();
-        this.title = event.getTitle();
-        this.guid = event.getGuid();
+    	 this.guid = event.getGuid();
+    	this.title = event.getTitle();
         this.bookStatusGuid = event.getBookStatusGuid();
     }
 }

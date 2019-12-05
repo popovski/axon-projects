@@ -7,15 +7,12 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 // value object
 public class CreateBookCommand {
-
 	@TargetAggregateIdentifier
-	private final String id;
-	private final String title;
 	private String guid;
+	private final String title;
 	private String bookStatusGuid;
 	
 	public CreateBookCommand(String guid, String title, String bookStatusGuid) {
-		this.id = UUID.randomUUID().toString();
 		this.title = title;
 		this.guid = guid;
 		this.bookStatusGuid = bookStatusGuid;
@@ -28,10 +25,6 @@ public class CreateBookCommand {
 
 	public void setBookStatusGuid(String bookStatusGuid) {
 		this.bookStatusGuid = bookStatusGuid;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public String getGuid() {
@@ -48,7 +41,7 @@ public class CreateBookCommand {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(guid);
 	}
 
 	@Override
@@ -60,11 +53,11 @@ public class CreateBookCommand {
 			return false;
 		}
 		final CreateBookCommand other = (CreateBookCommand) obj;
-		return Objects.equals(this.id, other.id);
+		return Objects.equals(this.guid, other.guid);
 	}
 
 	@Override
 	public String toString() {
-		return "CreateBookCommand{" + "book id='" + id + '\'' + ", title='" + '\'' + title + '}';
+		return "CreateBookCommand{" + "book guid='" + guid + '\'' + ", title='" + '\'' + title + '}';
 	}
 }

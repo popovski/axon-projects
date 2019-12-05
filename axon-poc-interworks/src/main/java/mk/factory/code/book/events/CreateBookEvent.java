@@ -5,13 +5,11 @@ import java.util.Objects;
 import mk.factory.code.book.commands.CreateBookCommand;
 
 public class CreateBookEvent {
-	private final String id;
 	private String guid;
 	private final String title;
 	private String bookStatusGuid;
 	
     public CreateBookEvent(CreateBookCommand command) {
-        this.id = command.getId();
         this.guid = command.getGuid();
         this.title = command.getTitle();
         this.bookStatusGuid = command.getBookStatusGuid();
@@ -26,10 +24,6 @@ public class CreateBookEvent {
 		this.bookStatusGuid = bookStatusGuid;
 	}
 
-	public String getId() {
-		return id;
-	}
-    
     public String getTitle() {
 		return title;
 	}
@@ -44,7 +38,7 @@ public class CreateBookEvent {
 
 	@Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(guid);
     }
 
     @Override
@@ -56,13 +50,11 @@ public class CreateBookEvent {
             return false;
         }
         final CreateBookEvent other = (CreateBookEvent) obj;
-        return Objects.equals(this.id, other.id);
+        return Objects.equals(this.guid, other.guid);
     }
 
     @Override
     public String toString() {
-        return "CreateBookEvent {" + "id='" + id + '\'' +
-                ", ='" + '\'' +
-                '}';
+        return "CreateBookEvent {" + "id='" + guid + '\'' + ", ='" + '\'' + '}';
     }
 }

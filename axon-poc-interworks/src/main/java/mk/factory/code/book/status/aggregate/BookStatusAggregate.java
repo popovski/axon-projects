@@ -19,9 +19,8 @@ import mk.factory.code.book.status.events.UpdateBookStatusEvent;
 public class BookStatusAggregate {
 
     @AggregateIdentifier
-    private String id;
-    private String statusName;
     private String guid;
+    private String statusName;
     
     protected BookStatusAggregate() {
         // Required by Axon to build a default Aggregate prior to Event Sourcing
@@ -33,22 +32,20 @@ public class BookStatusAggregate {
     	// the event is handled by the projector service
     	AggregateLifecycle.apply(new CreateBookStatusEvent(command));
     }
-
+    // update command should not be in a constructor
     @CommandHandler
-    public BookStatusAggregate(UpdateBookStatusCommand command) {
+    public void handle(UpdateBookStatusCommand command) {
     	AggregateLifecycle.apply(new UpdateBookStatusEvent(command.getId(), command.getStatusName(), command.getGuid()));
     }
-    
+    // AggregateIdentifier should be set only when we create entity
     @EventSourcingHandler
     public void on(CreateBookStatusEvent event) {
-        this.id = event.getId();
+    	this.guid = event.getGuid();
         this.statusName = event.getStatusName();
     }
-    
+    // AggregateIdentifier should be reused when we update one    
     @EventSourcingHandler
     public void on(UpdateBookStatusEvent event) {
-    	this.id = event.getId();
         this.statusName = event.getStatusName();
-        this.guid = event.getGuid();
     }
 }

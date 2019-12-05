@@ -5,25 +5,18 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 public class UpdateBookEvent {
 	@TargetAggregateIdentifier
-	private final String id;
-	private final String title;
 	private final String guid;
+	private final String title;
 	private final String bookStatusGuid;
 	
-	public UpdateBookEvent(String id, String title, String guid, String bookStatusGuid) {
-        this.id = id;
+	public UpdateBookEvent(String title, String guid, String bookStatusGuid) {
         this.title = title;
         this.guid = guid;
         this.bookStatusGuid = bookStatusGuid;
-        System.out.println("UpdateBookEvent: bookStatusGuid" + bookStatusGuid);
     }
 
     public String getBookStatusGuid() {
 		return bookStatusGuid;
-	}
-
-	public String getId() {
-		return id;
 	}
 
     public String getGuid() {
@@ -37,7 +30,7 @@ public class UpdateBookEvent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(guid);
     }
 
     @Override
@@ -49,13 +42,13 @@ public class UpdateBookEvent {
             return false;
         }
         final UpdateBookEvent other = (UpdateBookEvent) obj;
-        return Objects.equals(this.id, other.id);
+        return Objects.equals(this.guid, other.guid);
     }
 
     @Override
     public String toString() {
         return "UpdateBookEvent{" +
-                "id='" + id + '\'' +
+                "id='" + guid + '\'' +
                 ", product='" + '\'' +
                 '}';
     }
