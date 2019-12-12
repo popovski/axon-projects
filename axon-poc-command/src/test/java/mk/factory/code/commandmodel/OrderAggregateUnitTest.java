@@ -1,4 +1,4 @@
-package com.baeldung.axon.commandmodel;
+package mk.factory.code.commandmodel;
 
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
