@@ -12,9 +12,9 @@ public class CreateBookCommand {
 	private final String title;
 	private String bookStatusGuid;
 	
-	public CreateBookCommand(String guid, String title, String bookStatusGuid) {
+	public CreateBookCommand(String title, String bookStatusGuid) {
 		this.title = title;
-		this.guid = guid;
+		this.guid = UUID.randomUUID().toString();
 		this.bookStatusGuid = bookStatusGuid;
 		System.out.println("CreateBookCommand: bookStatusGuid" + bookStatusGuid);
 	}

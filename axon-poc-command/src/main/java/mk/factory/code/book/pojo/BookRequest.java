@@ -3,8 +3,6 @@ package mk.factory.code.book.pojo;
 public class BookRequest {
 	private String title;
 	private String bookStatusGuid;
-	// book guid id will be created by the http client e.x(fe or postman)
-	private String guid;
 
 	public String getTitle() {
 		return title;
@@ -20,13 +18,5 @@ public class BookRequest {
 
 	public void setBookStatusGuid(String bookStatusGuid) {
 		this.bookStatusGuid = bookStatusGuid;
-	}
-
-	public String getGuid() {
-		return guid;
-	}
-
-	public void setGuid(String guid) {
-		this.guid = guid;
 	}
 }
